@@ -3,14 +3,14 @@ import 'package:doorosk/core/resources/images/images_manager.dart';
 import 'package:doorosk/core/resources/routes/routes_names.dart';
 import 'package:flutter/material.dart';
 
-class OnboardingScreen extends StatefulWidget {
-  const OnboardingScreen({Key? key}) : super(key: key);
+class SplashScreen extends StatefulWidget {
+  const SplashScreen({Key? key}) : super(key: key);
 
   @override
-  State<OnboardingScreen> createState() => _OnboardingScreenState();
+  State<SplashScreen> createState() => _SplashScreenState();
 }
 
-class _OnboardingScreenState extends State<OnboardingScreen>
+class _SplashScreenState extends State<SplashScreen>
     with SingleTickerProviderStateMixin {
   late AnimationController _animationController;
   late Animation<Offset> _topAnimation;
