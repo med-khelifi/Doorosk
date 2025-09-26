@@ -22,7 +22,7 @@ class CustomBottomNavigationBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.symmetric(horizontal: 16.w,vertical: 8.w),
+      padding: EdgeInsets.symmetric(horizontal: 16.w,vertical: 2.w),
       height: 50.h,
       color: ColorsManager.primaryColor,
       child: Row(
