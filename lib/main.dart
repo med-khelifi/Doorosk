@@ -17,9 +17,9 @@ Future<String> getInitialRoute() async {
   String? deviceVersion = await getDeviceVersion();
   int version = int.tryParse(deviceVersion ?? "0") ?? 0;
   if (version < 12) {
-    return RoutesNames.details;
+    return RoutesNames.onboarding;
   }
-  return RoutesNames.onboarding;
+  return RoutesNames.splash;
 }
 
 void main() async {
