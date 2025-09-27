@@ -11,8 +11,6 @@ class CustomSquareContent extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 130.h,
-      width: 108.w,
       padding: EdgeInsets.all(6.w),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(18.r),
