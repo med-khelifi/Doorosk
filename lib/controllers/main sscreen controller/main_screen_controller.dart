@@ -13,11 +13,11 @@ class MainScreenController {
   late Sink<(int, Widget)> _appBarTabsSink;
   get appBarTabsStream => _appBarTabsStream;
 
-  MainScreenController(BuildContext context) {
+  MainScreenController(BuildContext context,int initialTabIndex) {
     _appBarTabsStreamController = StreamController();
     _appBarTabsStream = _appBarTabsStreamController.stream.asBroadcastStream();
     _appBarTabsSink = _appBarTabsStreamController.sink;
-    _appBarTabsSink.add((0, MainScreenAppBarData.appBarItems[0].body));
+    _appBarTabsSink.add((initialTabIndex, MainScreenAppBarData.appBarItems[initialTabIndex].body));
   }
   void onAppBarItemTap(int index) {
     _appBarTabsSink.add((index, MainScreenAppBarData.appBarItems[index].body));

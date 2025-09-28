@@ -13,10 +13,12 @@ class MainScreen extends StatefulWidget {
 class _MainScreenState extends State<MainScreen> {
   late MainScreenController _controller;
   @override
-  void initState() {
-    super.initState();
-    _controller = MainScreenController(context);
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    int index = ModalRoute.of(context)!.settings.arguments as int;
+    _controller = MainScreenController(context, index);
   }
+
   @override
   Widget build(BuildContext context) {
     return StreamBuilder<(int selectedIndex, Widget body)>(

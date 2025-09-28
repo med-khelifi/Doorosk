@@ -1,4 +1,4 @@
-import 'package:doorosk/core/resources/colors/colors_manager.dart';
+import 'package:doorosk/views/main/appBarTabs/widgets/custom_tabes_app_bar.dart';
 import 'package:flutter/material.dart';
 
 class LevelsTab extends StatelessWidget {
@@ -6,8 +6,10 @@ class LevelsTab extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Center(
-      child: Text("Levels", style: TextStyle(color: ColorsManager.whiteColor)),
+    return Column(
+      children: [
+        CustomTabesAppBar(onAddTap: () {  }, onSearchTap: () {  }, label: 'dddddddd',)
+      ],
     );
   }
 }
