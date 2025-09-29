@@ -6,6 +6,7 @@ class ColorsManager {
   static const Color blackColor = Color(0xFF000000);
   static const Color lightBlackColor = Color(0xFF1E1E1E);
   static const Color lightGreyColor = Color(0xFF47463C);
+  static const Color lightGreyColorForText = Color(0xFF514C4C);
   static const Color whiteColor30Opacity = Color.fromRGBO(255, 255, 255, 0.3);
   static const Color whiteColor = Color.fromRGBO(255, 255, 255, 1);
   static const Color transparent = Colors.transparent;
