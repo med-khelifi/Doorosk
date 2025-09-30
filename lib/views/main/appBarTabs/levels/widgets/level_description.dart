@@ -1,3 +1,4 @@
+import 'package:doorosk/core/models/level_model.dart';
 import 'package:doorosk/core/resources/colors/colors_manager.dart';
 import 'package:doorosk/core/resources/fonts/fonts_names_manager.dart';
 import 'package:doorosk/views/home/widgets/custom_circular_shape.dart';
@@ -8,13 +9,9 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 class LevelDescription extends StatelessWidget {
   const LevelDescription({
     super.key,
-    required this.imagePath,
-    required this.levelName,
-    required this.levelDescription,
-    required this.index,
+    required this.model
   });
-  final String imagePath, levelName, levelDescription;
-  final int index;
+  final LevelModel model;
   @override
   Widget build(BuildContext context) {
     return Stack(
@@ -40,9 +37,9 @@ class LevelDescription extends StatelessWidget {
             ],
           ),
           child: LevelDescriptionContent(
-            imagePath: imagePath,
-            levelName: levelName,
-            levelDescription: levelDescription,
+            imagePath: model.imagePath,
+            levelName: model.title,
+            levelDescription: model.description,
           ),
         ),
         Positioned(
@@ -50,7 +47,7 @@ class LevelDescription extends StatelessWidget {
           right: -15,
           child: CustomCircularShape(
             child: Text(
-              (index + 1).toString(),
+              model.levelId.toString(),
               style: TextStyle(
                 color: ColorsManager.whiteColor,
                 fontFamily: FontsNamesManager.geDinarOneFontName,
