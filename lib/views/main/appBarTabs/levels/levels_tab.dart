@@ -24,7 +24,7 @@ class _LevelsTabState extends State<LevelsTab> {
     return Column(
       children: [
         CustomTabesAppBar(
-          onAddTap: () {},
+          onAddTap:() => _tabController.onAddLevelPressed(context),
           onSearchTap: () {},
           label: StringsManager.homeScreenLearningLevels,
         ),

@@ -18,4 +18,7 @@ class StringsManager {
   static const String homeScreenAttendance = "الحظور";
   static const String homeScreenPayment = "الدفع";
   static const String homeScreenExploreApp = "إستكشف التطبيق";
+  static const String levelsTabEnterLevelName = "أدخل اسم المستوى";
+  static const String levelsTabEnterLevelDescription = "أدخل وصف المستوى";
+  static const String add = "إضافة";
 }

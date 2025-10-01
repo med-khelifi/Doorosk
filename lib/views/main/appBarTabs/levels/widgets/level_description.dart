@@ -7,10 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class LevelDescription extends StatelessWidget {
-  const LevelDescription({
-    super.key,
-    required this.model
-  });
+  const LevelDescription({super.key, required this.model});
   final LevelModel model;
   @override
   Widget build(BuildContext context) {
@@ -37,7 +34,7 @@ class LevelDescription extends StatelessWidget {
             ],
           ),
           child: LevelDescriptionContent(
-            imagePath: model.imagePath,
+            imagePath: model.imagePath!,
             levelName: model.title,
             levelDescription: model.description,
           ),
