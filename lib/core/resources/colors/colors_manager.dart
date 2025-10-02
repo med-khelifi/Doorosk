@@ -10,4 +10,5 @@ class ColorsManager {
   static const Color whiteColor30Opacity = Color.fromRGBO(255, 255, 255, 0.3);
   static const Color whiteColor = Color.fromRGBO(255, 255, 255, 1);
   static const Color transparent = Colors.transparent;
+  static const Color redColor = Colors.red;
 }

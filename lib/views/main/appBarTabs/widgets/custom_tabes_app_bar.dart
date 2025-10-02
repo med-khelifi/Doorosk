@@ -8,7 +8,8 @@ class CustomTabesAppBar extends StatelessWidget {
   const CustomTabesAppBar({
     Key? key,
     required this.onAddTap,
-    required this.onSearchTap, required this.label,
+    required this.onSearchTap,
+    required this.label,
   }) : super(key: key);
   final void Function() onAddTap;
   final void Function() onSearchTap;
@@ -18,7 +19,7 @@ class CustomTabesAppBar extends StatelessWidget {
     return Directionality(
       textDirection: TextDirection.rtl,
       child: Container(
-        padding: EdgeInsets.symmetric(vertical: 10.h,horizontal: 17.w),
+        padding: EdgeInsets.symmetric(vertical: 10.h, horizontal: 17.w),
         color: ColorsManager.primaryColor,
         height: 45.h,
         width: double.infinity,
@@ -44,7 +45,7 @@ class CustomTabesAppBar extends StatelessWidget {
                     color: ColorsManager.whiteColor,
                   ),
                 ),
-                SizedBox(width: 5.w,),
+                SizedBox(width: 5.w),
                 InkWell(
                   onTap: onSearchTap,
                   child: Icon(Icons.search, color: ColorsManager.whiteColor),

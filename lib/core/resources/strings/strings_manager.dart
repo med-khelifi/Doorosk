@@ -21,4 +21,8 @@ class StringsManager {
   static const String levelsTabEnterLevelName = "أدخل اسم المستوى";
   static const String levelsTabEnterLevelDescription = "أدخل وصف المستوى";
   static const String add = "إضافة";
+  static const String addingWithSuccessTitle = "تمت العملية بنجاح";
+  static const String addingDoneMessage = "تمت إضافة المستوى بنجاح ✅";
+  static const String pleaseEnterLevelName = "الرجاء إدخال اسم المستوى";
+  static const String pleaseEnterLevelDescription = "الرجاء إدخال وصف المستوى";
 }

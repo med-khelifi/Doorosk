@@ -1,11 +1,20 @@
+import 'dart:io';
+
 import 'package:doorosk/core/resources/colors/colors_manager.dart';
 import 'package:doorosk/core/resources/fonts/fonts_names_manager.dart';
+import 'package:doorosk/core/resources/images/images_manager.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/svg.dart';
 
 class LevelDescriptionContent extends StatelessWidget {
-  const LevelDescriptionContent({super.key, required this.imagePath, required this.levelName, required this.levelDescription});
-  final String imagePath;
+  const LevelDescriptionContent({
+    super.key,
+    required this.imagePath,
+    required this.levelName,
+    required this.levelDescription,
+  });
+  final String? imagePath;
   final String levelName;
   final String levelDescription;
   @override
@@ -45,8 +54,26 @@ class LevelDescriptionContent extends StatelessWidget {
             ],
           ),
         ),
-        SizedBox(width: 10.w,),
-        CircleAvatar(radius: 30.r, backgroundImage: AssetImage(imagePath)),
+        SizedBox(width: 10.w),
+        CircleAvatar(
+          radius: 30.r,
+          child: imagePath == null
+              ? SvgPicture.asset(
+                  ImagesManager.placeholder,
+                  fit: BoxFit.contain,
+                  width: double.infinity,
+                  height: double.infinity,
+                )
+              : ClipRRect(
+                  borderRadius: BorderRadiusGeometry.circular(30.r),
+                  child: Image(
+                    width: double.infinity,
+                    height: double.infinity,
+                    image: FileImage(File(imagePath!)),
+                    fit: BoxFit.contain,
+                  ),
+                ),
+        ),
       ],
     );
   }

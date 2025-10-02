@@ -1,20 +1,26 @@
+import 'dart:io';
+
 import 'package:doorosk/core/resources/colors/colors_manager.dart';
 import 'package:doorosk/core/resources/fonts/fonts_names_manager.dart';
 import 'package:doorosk/core/resources/images/images_manager.dart';
 import 'package:doorosk/core/resources/strings/strings_manager.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 class AddNewLevelBottomSheet {
   static void showAddNewLevelBottomSheet({
     required BuildContext context,
     required void Function() onAddLevelPressed,
     required void Function() onPicPressed,
+    required void Function() onSetImageTapped,
+    required void Function() onDeletePicTapped,
     required TextEditingController levelNameTextController,
     required TextEditingController levelDescriptionTextController,
     required GlobalKey<FormState> formKey,
     String? Function(String?)? levelNameFieldValidator,
     String? Function(String?)? levelDescriptionFieldValidator,
+    required Stream<String?> selectedPicStream,
   }) {
     showModalBottomSheet(
       context: context,
@@ -39,41 +45,28 @@ class AddNewLevelBottomSheet {
               textDirection: TextDirection.rtl,
               mainAxisSize: MainAxisSize.min,
               children: [
-                Row(
+                TextFormField(
+                  validator: levelNameFieldValidator,
+                  controller: levelNameTextController,
+                  textAlign: TextAlign.right,
                   textDirection: TextDirection.rtl,
-                  children: [
-                    Expanded(
-                      child: TextFormField(
-                        validator: levelNameFieldValidator,
-                        controller: levelNameTextController,
-                        textAlign: TextAlign.right,
-                        decoration: InputDecoration(
-                          hintText: StringsManager.levelsTabEnterLevelName,
-                          filled: true,
-                          fillColor: ColorsManager.whiteColor,
-                          border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(12),
-                          ),
-                        ),
-                      ),
+                  decoration: InputDecoration(
+                    hintText: StringsManager.levelsTabEnterLevelName,
+                    filled: true,
+                    fillColor: ColorsManager.whiteColor,
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(12),
                     ),
-                    SizedBox(width: 10.w),
-                    InkWell(
-                      onTap: onPicPressed,
-                      child: CircleAvatar(
-                        radius: 25.sp,
-                        backgroundImage: AssetImage(ImagesManager.placeholder),
-                      ),
-                    ),
-                  ],
+                  ),
                 ),
-                SizedBox(height: 6.h),
+                SizedBox(height: 12.h),
                 TextFormField(
                   validator: levelDescriptionFieldValidator,
                   controller: levelDescriptionTextController,
                   maxLines: 5,
                   minLines: 1,
                   textAlign: TextAlign.right,
+                  textDirection: TextDirection.rtl,
                   decoration: InputDecoration(
                     hintText: StringsManager.levelsTabEnterLevelDescription,
                     filled: true,
@@ -81,6 +74,60 @@ class AddNewLevelBottomSheet {
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(12),
                     ),
+                  ),
+                ),
+                SizedBox(height: 10.h),
+                SizedBox(
+                  width: double.infinity,
+                  child: StreamBuilder(
+                    stream: selectedPicStream,
+                    builder: (context, imagePath) {
+                      return Stack(
+                        children: [
+                          if (imagePath.data != null || imagePath.hasData)
+                            IconButton.filled(
+                              onPressed: onDeletePicTapped,
+                              icon: Icon(
+                                Icons.delete_outline_outlined,
+                                color: ColorsManager.redColor,
+                                size: 30,
+                              ),
+                            ),
+                          Align(
+                            alignment: Alignment.center,
+                            child: InkWell(
+                              onTap: onSetImageTapped,
+                              child: CircleAvatar(
+                                radius: 90.r,
+                                child:
+                                    imagePath.data == null || !imagePath.hasData
+                                    ? SvgPicture.asset(
+                                        width: double.infinity,
+                                        height: double.infinity,
+                                        ImagesManager.placeholder,
+                                      )
+                                    : Expanded(
+                                        child: ClipRRect(
+                                          borderRadius:
+                                              BorderRadiusGeometry.circular(
+                                                90.r,
+                                              ),
+                                          child: Image(
+                                            image: FileImage(
+                                              File(imagePath.data!),
+                                            ),
+                                            fit: BoxFit.fill,
+                                            width: double.infinity,
+                                            height: double.infinity,
+                                          ),
+                                        ),
+                                      ),
+                              ),
+                            ),
+                          ),
+                        ],
+                      );
+                    },
                   ),
                 ),
                 SizedBox(height: 10.h),

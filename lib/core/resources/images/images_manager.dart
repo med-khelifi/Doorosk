@@ -28,5 +28,5 @@ class ImagesManager {
   static const String mainScreenBottomBarLevels0 = "assets/images/levels_0.svg";
   static const String mainScreenBottomBarLevels1 = "assets/images/levels_1.svg";
   static const String test = "assets/images/level_test.png";
-  static const String placeholder = "assets/images/placeholder.png";
+  static const String placeholder = "assets/images/Placeholder.svg";
 }

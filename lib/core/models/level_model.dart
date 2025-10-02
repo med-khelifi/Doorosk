@@ -21,7 +21,12 @@ class LevelModel {
   static const String educationalStageStatus = 'status';
   */
   }
-  // factory ItemStageModel.fromJson(Map<String,Object?> map){
-
-  // }
+  factory LevelModel.fromJson(Map<String, Object?> map) {
+    return LevelModel(
+      levelId: map['id']?.toString(),
+      title: map['name']?.toString() ?? '',
+      description: map['desc']?.toString() ?? '',
+      imagePath: map['image']?.toString(),
+    );
+  }
 }

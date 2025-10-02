@@ -16,7 +16,7 @@ class _LevelsTabState extends State<LevelsTab> {
   @override
   void initState() {
     super.initState();
-    _tabController =LevelTabController();
+    _tabController = LevelTabController(context);
   }
 
   @override
@@ -24,15 +24,25 @@ class _LevelsTabState extends State<LevelsTab> {
     return Column(
       children: [
         CustomTabesAppBar(
-          onAddTap:() => _tabController.onAddLevelPressed(context),
+          onAddTap: () => _tabController.onAddLevelPressed(context),
           onSearchTap: () {},
           label: StringsManager.homeScreenLearningLevels,
         ),
         SizedBox(height: 10),
         Expanded(
-          child: Padding(
-            padding: const EdgeInsets.all(18.0),
-            child: LevelsListView(modelsList: _tabController.levelsList),
+          child: FutureBuilder(
+            future: _tabController.getAllLevels(),
+            builder: (context, snapshot) {
+              if (snapshot.connectionState == ConnectionState.waiting) {
+                return Center(child: CircularProgressIndicator());
+              } else if (snapshot.hasError) {
+                return Center(child: Text("حدث خطأ أثناء تحميل المستويات"));
+              } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
+                return Center(child: Text("لا توجد مستويات"));
+              } else {
+                return LevelsListView(modelsList: snapshot.data!);
+              }
+            },
           ),
         ),
       ],
