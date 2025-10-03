@@ -13,7 +13,7 @@ class LevelTabController {
   late final StreamController<String?> _selectedImageStreamController;
   late final Stream<String?> _selectedImageStream;
   String? _selectedImagePath;
-  
+
   late final Sink<String?> _selectedImageSink;
   LevelTabController(BuildContext context) {
     _context = context;
@@ -101,17 +101,20 @@ class LevelTabController {
           title: Text(StringsManager.addingWithSuccessTitle),
           content: Text(StringsManager.addingDoneMessage),
           actions: [
-            TextButton(
-              onPressed: () {
-                Navigator.of(ctx).pop(); // close dialog
-                Navigator.of(_context).pop(); // close bottom sheet
-              },
-              child: Text("OK"),
-            ),
+            TextButton(onPressed: _onCloseBottomSheet, child: Text("OK")),
           ],
         ),
       );
     }
+  }
+
+  void _onCloseBottomSheet() {
+    // close dialog
+    Navigator.of(_context).pop(); // close bottom sheet
+    Navigator.of(_context).pop(); // close bottom sheet
+    _selectedImagePath = null;
+    _levelNameTextController.clear();
+    _levelDescriptionTextController.clear();
   }
 
   void _openGallery() async {
@@ -126,6 +129,7 @@ class LevelTabController {
       _selectedImagePath = null;
       _selectedImageSink.add(null);
     }
+
     _closeDialog();
   }
 
