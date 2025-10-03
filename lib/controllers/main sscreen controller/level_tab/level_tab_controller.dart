@@ -1,18 +1,19 @@
 import 'dart:async';
-
 import 'package:doorosk/core/models/level_model.dart';
 import 'package:doorosk/core/resources/strings/strings_manager.dart';
 import 'package:doorosk/database/education_stage_operation.dart';
 import 'package:doorosk/views/main/appBarTabs/levels/widgets/add_new_level_bottom_sheet.dart';
+import 'package:doorosk/views/main/appBarTabs/levels/widgets/alert_dialog_camera_gallery.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 
 class LevelTabController {
   late BuildContext _context;
+  final ImagePicker imagePicker = ImagePicker();
   late final StreamController<String?> _selectedImageStreamController;
   late final Stream<String?> _selectedImageStream;
   String? _selectedImagePath;
-  //get selectedImageStream => _selectedImageStream;
+  
   late final Sink<String?> _selectedImageSink;
   LevelTabController(BuildContext context) {
     _context = context;
@@ -63,18 +64,12 @@ class LevelTabController {
   }
 
   void onSetImagePressed() async {
-    final ImagePicker imagePicker = ImagePicker();
-    final XFile? image = await imagePicker.pickImage(
-      source: ImageSource.gallery,
+    AlertDialogCameraGallery.showDialogChooseCameraOrGallery(
+      context: _context,
+      onCloseIconPressed: _closeDialog,
+      onCameraIconPressed: _openCamera,
+      onGalleryIconPressed: _openGallery,
     );
-
-    if (image != null) {
-      _selectedImagePath = image.path;
-      _selectedImageSink.add(image.path);
-    } else {
-      _selectedImagePath = null;
-      _selectedImageSink.add(null);
-    }
   }
 
   void onDeleteLevelPicTapped() {
@@ -95,10 +90,12 @@ class LevelTabController {
 
     if (res) {
       // 1. Close the keyboard
+      // ignore: use_build_context_synchronously
       FocusScope.of(_context).unfocus();
 
       // 2. Show a dialog message
       showDialog(
+        // ignore: use_build_context_synchronously
         context: _context,
         builder: (ctx) => AlertDialog(
           title: Text(StringsManager.addingWithSuccessTitle),
@@ -115,5 +112,39 @@ class LevelTabController {
         ),
       );
     }
+  }
+
+  void _openGallery() async {
+    final XFile? image = await imagePicker.pickImage(
+      source: ImageSource.gallery,
+    );
+
+    if (image != null) {
+      _selectedImagePath = image.path;
+      _selectedImageSink.add(image.path);
+    } else {
+      _selectedImagePath = null;
+      _selectedImageSink.add(null);
+    }
+    _closeDialog();
+  }
+
+  void _closeDialog() {
+    Navigator.of(_context).pop();
+  }
+
+  void _openCamera() async {
+    final XFile? image = await imagePicker.pickImage(
+      source: ImageSource.camera,
+    );
+
+    if (image != null) {
+      _selectedImagePath = image.path;
+      _selectedImageSink.add(image.path);
+    } else {
+      _selectedImagePath = null;
+      _selectedImageSink.add(null);
+    }
+    _closeDialog();
   }
 }

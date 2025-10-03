@@ -106,22 +106,20 @@ class AddNewLevelBottomSheet {
                                         height: double.infinity,
                                         ImagesManager.placeholder,
                                       )
-                                    : Expanded(
-                                        child: ClipRRect(
-                                          borderRadius:
-                                              BorderRadiusGeometry.circular(
-                                                90.r,
-                                              ),
-                                          child: Image(
-                                            image: FileImage(
-                                              File(imagePath.data!),
-                                            ),
-                                            fit: BoxFit.fill,
-                                            width: double.infinity,
-                                            height: double.infinity,
+                                    : ClipRRect(
+                                      borderRadius:
+                                          BorderRadiusGeometry.circular(
+                                            90.r,
                                           ),
+                                      child: Image(
+                                        image: FileImage(
+                                          File(imagePath.data!),
                                         ),
+                                        fit: BoxFit.fill,
+                                        width: double.infinity,
+                                        height: double.infinity,
                                       ),
+                                    ),
                               ),
                             ),
                           ),
