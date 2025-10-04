@@ -3,14 +3,25 @@ import 'package:doorosk/views/main/appBarTabs/levels/widgets/level_description.d
 import 'package:flutter/material.dart';
 
 class LevelsListView extends StatelessWidget {
-  const LevelsListView({super.key, required this.modelsList});
+  const LevelsListView({
+    super.key,
+    required this.modelsList,
+    required this.deleteLevel,
+    required this.editLevel,
+  });
   final List<LevelModel> modelsList;
+  final void Function(LevelModel) deleteLevel;
+  final void Function(LevelModel) editLevel;
+
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
-      padding: EdgeInsets.symmetric(horizontal: 20),
-      itemBuilder: (BuildContext context, int index) =>
-          LevelDescription(model: modelsList[index]),
+      // padding: EdgeInsets.symmetric(horizontal: 20),
+      itemBuilder: (BuildContext context, int index) => LevelDescription(
+        model: modelsList[index],
+        deleteLevel: deleteLevel,
+        editLevel: editLevel,
+      ),
       itemCount: modelsList.length,
       // separatorBuilder: (BuildContext context, int index) =>
       //     SizedBox(height: 18.h),

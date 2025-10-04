@@ -7,9 +7,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class SearchEducationLevel extends SearchDelegate<String> {
-  SearchEducationLevel({required this.searchedListFuture});
+  SearchEducationLevel({
+    required this.searchedListFuture,
+    required this.deleteLevel,
+    required this.editLevel,
+  });
+  final void Function(LevelModel) deleteLevel;
+  final void Function(LevelModel) editLevel;
+
   final Future<List<LevelModel>> Function(String) searchedListFuture;
-  
+
   /// Theme
   @override
   ThemeData appBarTheme(BuildContext context) {
@@ -41,12 +48,17 @@ class SearchEducationLevel extends SearchDelegate<String> {
 
   @override
   List<Widget>? buildActions(BuildContext context) {
-    return [Padding(
-      padding: const EdgeInsets.only(right: 15),
-      child: IconButton(onPressed: () {
-        query ="";
-      }, icon: Icon(Icons.close, color: ColorsManager.whiteColor)),
-    )];
+    return [
+      Padding(
+        padding: const EdgeInsets.only(right: 15),
+        child: IconButton(
+          onPressed: () {
+            query = "";
+          },
+          icon: Icon(Icons.close, color: ColorsManager.whiteColor),
+        ),
+      ),
+    ];
   }
 
   @override
@@ -89,7 +101,11 @@ class SearchEducationLevel extends SearchDelegate<String> {
           } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
             return Center(child: Text("لم يتم العثور على نتائج"));
           } else {
-            return LevelsListView(modelsList: snapshot.data!);
+            return LevelsListView(
+              modelsList: snapshot.data!,
+              deleteLevel: deleteLevel,
+              editLevel: editLevel,
+            );
           }
         },
       ),
@@ -126,7 +142,11 @@ class SearchEducationLevel extends SearchDelegate<String> {
           } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
             return Center(child: Text("لا توجد اقتراحات"));
           } else {
-            return LevelsListView(modelsList: snapshot.data!);
+            return LevelsListView(
+              modelsList: snapshot.data!,
+              deleteLevel: deleteLevel,
+              editLevel: editLevel,
+            );
           }
         },
       ),

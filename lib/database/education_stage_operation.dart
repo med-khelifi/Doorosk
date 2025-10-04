@@ -9,8 +9,21 @@ class EducationStageOperation extends MySqFLiteDatabase {
     );
   }
 
+  Future<bool> updateEducationLevel(LevelModel level) {
+    return update(
+      tableName: MySqFLiteDatabase.educationalStageTableName,
+      values: level.toMapOnUpdate(),
+      where: '${MySqFLiteDatabase.educationalStageID} == ?',
+      whereArgs: [level.levelId],
+    );
+  }
+
   Future<List<Map<String, Object?>>> getAllLevels() async {
-    return await select(tableName: MySqFLiteDatabase.educationalStageTableName);
+    return await select(
+      tableName: MySqFLiteDatabase.educationalStageTableName,
+      where: '${MySqFLiteDatabase.educationalStageStatus} == ?',
+      whereArgs: [1],
+    );
   }
 
   Future<List<Map<String, Object?>>> searchLevel({
@@ -20,6 +33,18 @@ class EducationStageOperation extends MySqFLiteDatabase {
       tableName: MySqFLiteDatabase.educationalStageTableName,
       searchWord: levelName,
       columnName: MySqFLiteDatabase.educationalStageName,
+      whereQuery:
+          '${MySqFLiteDatabase.educationalStageName} LIKE ? AND ${MySqFLiteDatabase.educationalStageStatus} == ?',
+      whereArgs: ['%$levelName%', 1],
+    );
+  }
+
+  Future<bool> softDelete({required LevelModel model}) async {
+    return await update(
+      tableName: MySqFLiteDatabase.educationalStageTableName,
+      values: {MySqFLiteDatabase.educationalStageStatus: 0},
+      where: '${MySqFLiteDatabase.educationalStageID} == ?',
+      whereArgs: [model.levelId],
     );
   }
 }

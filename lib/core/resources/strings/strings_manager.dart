@@ -11,6 +11,7 @@ class StringsManager {
   static const String next = "التالي";
   static const String skip = "تخطي";
   static const String start = "ابدأ";
+  static const String edit = "تعديل";
 
   static const String homeScreenLearningLevels = "المراحل التعليمية";
   static const String homeScreenGroups = "المجموعات";
@@ -23,6 +24,7 @@ class StringsManager {
   static const String add = "إضافة";
   static const String addingWithSuccessTitle = "تمت العملية بنجاح";
   static const String addingDoneMessage = "تمت إضافة المستوى بنجاح ✅";
+  static const String editingDoneMessage = "تمت تعديل المستوى بنجاح ✅";
   static const String pleaseEnterLevelName = "الرجاء إدخال اسم المستوى";
   static const String pleaseEnterLevelDescription = "الرجاء إدخال وصف المستوى";
 }

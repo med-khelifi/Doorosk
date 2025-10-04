@@ -12,7 +12,6 @@ class AddNewLevelBottomSheet {
   static void showAddNewLevelBottomSheet({
     required BuildContext context,
     required void Function() onAddLevelPressed,
-    required void Function() onPicPressed,
     required void Function() onSetImageTapped,
     required void Function() onDeletePicTapped,
     required TextEditingController levelNameTextController,
@@ -21,6 +20,8 @@ class AddNewLevelBottomSheet {
     String? Function(String?)? levelNameFieldValidator,
     String? Function(String?)? levelDescriptionFieldValidator,
     required Stream<String?> selectedPicStream,
+    bool editMode = false,
+    String?initialImagePath
   }) {
     showModalBottomSheet(
       context: context,
@@ -81,10 +82,11 @@ class AddNewLevelBottomSheet {
                   width: double.infinity,
                   child: StreamBuilder(
                     stream: selectedPicStream,
+                    initialData: initialImagePath,
                     builder: (context, imagePath) {
                       return Stack(
                         children: [
-                          if (imagePath.data != null || imagePath.hasData)
+                          if (imagePath.data != null && imagePath.hasData)
                             IconButton.filled(
                               onPressed: onDeletePicTapped,
                               icon: Icon(
@@ -138,7 +140,7 @@ class AddNewLevelBottomSheet {
                   minWidth: 122.w,
                   height: 50.h,
                   child: Text(
-                    StringsManager.add,
+                    editMode ? StringsManager.edit : StringsManager.add,
                     style: TextStyle(
                       color: ColorsManager.whiteColor,
                       fontFamily: FontsNamesManager.geDinarOneFontName,

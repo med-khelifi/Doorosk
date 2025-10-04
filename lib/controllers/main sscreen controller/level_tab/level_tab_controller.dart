@@ -16,6 +16,7 @@ import 'package:path_provider/path_provider.dart';
 
 class LevelTabController {
   late BuildContext _context;
+  late bool isEditMode;
 
   /// Controllers
   final ImagePicker _imagePicker = ImagePicker();
@@ -60,6 +61,7 @@ class LevelTabController {
     return rawList.map((map) => LevelModel.fromJson(map)).toList();
   }
 
+  /// Search education level by name
   Future<List<LevelModel>> searchLevelByName(String levelName) async {
     EducationStageOperation educationStageOperation = EducationStageOperation();
     var rawList = await educationStageOperation.searchLevel(
@@ -70,10 +72,11 @@ class LevelTabController {
 
   /// Show BottomSheet to add new level
   void onAddLevelPressed(BuildContext context) {
+    _levelNameTextController.clear();
+    _levelDescriptionTextController.clear();
     AddNewLevelBottomSheet.showAddNewLevelBottomSheet(
       context: context,
       onAddLevelPressed: addEducationButtonPressed,
-      onPicPressed: () {},
       levelNameTextController: _levelNameTextController,
       levelDescriptionTextController: _levelDescriptionTextController,
       formKey: _formKey,
@@ -92,6 +95,8 @@ class LevelTabController {
       onSetImageTapped: onSetImagePressed,
       onDeletePicTapped: onDeleteLevelPicTapped,
       selectedPicStream: selectedImageStream,
+      editMode: isEditMode,
+      initialImagePath: isEditMode ? _selectedImagePath : null
     );
   }
 
@@ -118,10 +123,16 @@ class LevelTabController {
     EducationStageOperation educationStageOperation = EducationStageOperation();
     String name = _levelNameTextController.text.trim();
     String desc = _levelDescriptionTextController.text.trim();
-    bool res = await educationStageOperation.insertLevelDetails(
-      LevelModel(title: name, description: desc, imagePath: _selectedImagePath),
+    var level = LevelModel(
+      title: name,
+      levelId: updatedLevelId,
+      description: desc,
+      imagePath: _selectedImagePath,
     );
-
+    bool res = isEditMode
+        ? await educationStageOperation.updateEducationLevel(level)
+        : await educationStageOperation.insertLevelDetails(level);
+  
     if (res) {
       // Close the keyboard
       FocusScope.of(_context).unfocus();
@@ -131,7 +142,11 @@ class LevelTabController {
         context: _context,
         builder: (ctx) => AlertDialog(
           title: Text(StringsManager.addingWithSuccessTitle),
-          content: Text(StringsManager.addingDoneMessage),
+          content: Text(
+            isEditMode
+                ? StringsManager.editingDoneMessage
+                : StringsManager.addingDoneMessage,
+          ),
           actions: [
             TextButton(onPressed: _onCloseBottomSheet, child: Text("OK")),
           ],
@@ -181,7 +196,28 @@ class LevelTabController {
   void onSearchTapped() {
     showSearch(
       context: _context,
-      delegate: SearchEducationLevel(searchedListFuture: searchLevelByName),
+      delegate: SearchEducationLevel(
+        searchedListFuture: searchLevelByName,
+        deleteLevel: softDeleteEducationLevel,
+        editLevel: editEducationLevel,
+      ),
     );
+  }
+
+  void softDeleteEducationLevel(LevelModel model) async {
+    EducationStageOperation op = EducationStageOperation();
+    final res = await op.softDelete(model: model);
+  }
+  String? updatedLevelId;
+  void editEducationLevel(LevelModel model) async {
+    isEditMode = true;
+    _selectedImagePath = model.imagePath;
+    updatedLevelId=model.levelId;
+    onAddLevelPressed(_context);
+    _levelNameTextController.text = model.title;
+    _levelDescriptionTextController.text = model.description;
+    _selectedImagePath = model.imagePath;
+   // the problem is here why the image dont lode in bottomsheet
+    print(_selectedImagePath);
   }
 }

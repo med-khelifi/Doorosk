@@ -24,6 +24,17 @@ class LevelModel {
   static const String educationalStageStatus = 'status';
   */
   }
+  Map<String, Object?> toMapOnUpdate() {
+    return {"id":levelId,"name": title, "desc": description, "image": imagePath};
+    /*
+  static const String educationalStageID = 'id';
+  static const String educationalStageName = 'name';
+  static const String educationalStageDesc = 'desc';
+  static const String educationalStageImage = 'image';
+  static const String educationalStageCreatedAt = 'created_at';
+  static const String educationalStageStatus = 'status';
+  */
+  }
   factory LevelModel.fromJson(Map<String, Object?> map) {
     return LevelModel(
       levelId: map['id']?.toString(),

@@ -1,4 +1,5 @@
 import 'package:doorosk/controllers/main%20sscreen%20controller/level_tab/level_tab_controller.dart';
+import 'package:doorosk/core/models/level_model.dart';
 import 'package:doorosk/core/resources/strings/strings_manager.dart';
 import 'package:doorosk/views/main/appBarTabs/levels/widgets/levels_list_view.dart';
 import 'package:doorosk/views/main/appBarTabs/widgets/custom_tabes_app_bar.dart';
@@ -40,7 +41,7 @@ class _LevelsTabState extends State<LevelsTab> {
               } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
                 return Center(child: Text("لا توجد مستويات"));
               } else {
-                return LevelsListView(modelsList: snapshot.data!);
+                return LevelsListView(modelsList: snapshot.data!, deleteLevel: _tabController.softDeleteEducationLevel, editLevel: _tabController.editEducationLevel,);
               }
             },
           ),

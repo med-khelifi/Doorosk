@@ -7,12 +7,48 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class LevelDescription extends StatelessWidget {
-  const LevelDescription({super.key, required this.model});
+  const LevelDescription({
+    super.key,
+    required this.model,
+    required this.deleteLevel,
+    required this.editLevel,
+  });
   final LevelModel model;
+  final void Function(LevelModel level) deleteLevel;
+  final void Function(LevelModel level) editLevel;
   @override
   Widget build(BuildContext context) {
     return Dismissible(
       key: ValueKey(model.levelId),
+      confirmDismiss: (direction) async {
+        if (direction == DismissDirection.endToStart) {
+          // delete
+          editLevel(model);
+        } else if (direction == DismissDirection.startToEnd) {
+          return await showDialog<bool>(
+            context: context,
+            builder: (ctx) => AlertDialog(
+              title: Text("تأكيد الحذف"),
+              content: Text("هل أنت متأكد أنك تريد حذف هذا العنصر؟"),
+              actions: [
+                TextButton(
+                  onPressed: () => Navigator.of(ctx).pop(false), // إلغاء
+                  child: Text("إلغاء"),
+                ),
+                ElevatedButton(
+                  onPressed: () {
+                    Navigator.of(ctx).pop(true);
+                    deleteLevel(model);
+                  }, // حذف
+                  child: Text("حذف"),
+                ),
+              ],
+            ),
+          );
+        }
+        return false; // default
+      },
+
       background: Container(
         padding: EdgeInsets.all(20),
         alignment: Alignment.centerLeft,
@@ -40,7 +76,12 @@ class LevelDescription extends StatelessWidget {
         ),
       ),
       child: Padding(
-        padding: const EdgeInsets.symmetric(vertical: 10),
+        padding: const EdgeInsets.only(
+          bottom: 10,
+          left: 10,
+          top: 20,
+          right: 30,
+        ),
         child: Stack(
           clipBehavior: Clip.none,
           children: [
@@ -54,7 +95,10 @@ class LevelDescription extends StatelessWidget {
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(18.r),
                 color: ColorsManager.blackColor,
-                border: Border.all(color: ColorsManager.primaryColor, width: 1.w),
+                border: Border.all(
+                  color: ColorsManager.primaryColor,
+                  width: 1.w,
+                ),
                 boxShadow: [
                   BoxShadow(
                     blurRadius: 10.r,
