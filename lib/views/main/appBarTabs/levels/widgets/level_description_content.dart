@@ -13,10 +13,12 @@ class LevelDescriptionContent extends StatelessWidget {
     required this.imagePath,
     required this.levelName,
     required this.levelDescription,
+    required this.createdAt,
   });
   final String? imagePath;
   final String levelName;
   final String levelDescription;
+  final String createdAt;
   @override
   Widget build(BuildContext context) {
     return Row(
@@ -49,6 +51,18 @@ class LevelDescriptionContent extends StatelessWidget {
                   fontSize: 10.sp,
                   height: 1.4.h,
                   color: ColorsManager.lightGreyColorForText,
+                ),
+              ),
+              SizedBox(height: 4.h),
+              Text(
+                createdAt,
+                textDirection: TextDirection.rtl,
+                softWrap: true,
+                overflow: TextOverflow.visible,
+                style: TextStyle(
+                  fontFamily: FontsNamesManager.geDinarOneFontName,
+                  fontSize: 9.sp,
+                  color: ColorsManager.whiteColor,
                 ),
               ),
             ],

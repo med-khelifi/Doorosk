@@ -11,51 +11,81 @@ class LevelDescription extends StatelessWidget {
   final LevelModel model;
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 20,vertical: 15),
-      child: Stack(
-        clipBehavior: Clip.none,
-        children: [
-          Positioned(
-            top: -15,
-            right: -15,
-            child: CustomCircularShape(withShadow: true),
+    return Dismissible(
+      key: ValueKey(model.levelId),
+      background: Container(
+        padding: EdgeInsets.all(20),
+        alignment: Alignment.centerLeft,
+        color: ColorsManager.redColor,
+        child: Text(
+          "حذف",
+          style: TextStyle(
+            color: ColorsManager.whiteColor,
+            fontFamily: FontsNamesManager.geDinarOneFontName,
+            fontSize: 20.sp,
           ),
-          Container(
-            padding: EdgeInsets.symmetric(horizontal: 25.w, vertical: 6.w),
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(18.r),
-              color: ColorsManager.blackColor,
-              border: Border.all(color: ColorsManager.primaryColor, width: 1.w),
-              boxShadow: [
-                BoxShadow(
-                  blurRadius: 10.r,
-                  blurStyle: BlurStyle.outer,
-                  color: ColorsManager.primaryColor,
-                ),
-              ],
-            ),
-            child: LevelDescriptionContent(
-              imagePath: model.imagePath,
-              levelName: model.title,
-              levelDescription: model.description,
-            ),
+        ),
+      ),
+      secondaryBackground: Container(
+        padding: EdgeInsets.all(20),
+        alignment: Alignment.centerRight,
+        color: ColorsManager.greenColor,
+        child: Text(
+          "تعديل",
+          style: TextStyle(
+            color: ColorsManager.whiteColor,
+            fontFamily: FontsNamesManager.geDinarOneFontName,
+            fontSize: 20.sp,
           ),
-          Positioned(
-            top: -15,
-            right: -15,
-            child: CustomCircularShape(
-              child: Text(
-                model.levelId.toString(),
-                style: TextStyle(
-                  color: ColorsManager.whiteColor,
-                  fontFamily: FontsNamesManager.geDinarOneFontName,
-                  fontSize: 12,
+        ),
+      ),
+      child: Padding(
+        padding: const EdgeInsets.symmetric(vertical: 10),
+        child: Stack(
+          clipBehavior: Clip.none,
+          children: [
+            Positioned(
+              top: -15,
+              right: -15,
+              child: CustomCircularShape(withShadow: true),
+            ),
+            Container(
+              padding: EdgeInsets.symmetric(horizontal: 25.w, vertical: 6.w),
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(18.r),
+                color: ColorsManager.blackColor,
+                border: Border.all(color: ColorsManager.primaryColor, width: 1.w),
+                boxShadow: [
+                  BoxShadow(
+                    blurRadius: 10.r,
+                    blurStyle: BlurStyle.outer,
+                    color: ColorsManager.primaryColor,
+                  ),
+                ],
+              ),
+              child: LevelDescriptionContent(
+                imagePath: model.imagePath,
+                levelName: model.title,
+                levelDescription: model.description,
+                createdAt: model.createdAt ?? "--------",
+              ),
+            ),
+            Positioned(
+              top: -15,
+              right: -15,
+              child: CustomCircularShape(
+                child: Text(
+                  model.levelId.toString(),
+                  style: TextStyle(
+                    color: ColorsManager.whiteColor,
+                    fontFamily: FontsNamesManager.geDinarOneFontName,
+                    fontSize: 12,
+                  ),
                 ),
               ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

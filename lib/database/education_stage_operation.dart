@@ -12,4 +12,14 @@ class EducationStageOperation extends MySqFLiteDatabase {
   Future<List<Map<String, Object?>>> getAllLevels() async {
     return await select(tableName: MySqFLiteDatabase.educationalStageTableName);
   }
+
+  Future<List<Map<String, Object?>>> searchLevel({
+    required String levelName,
+  }) async {
+    return await searchUsingLike(
+      tableName: MySqFLiteDatabase.educationalStageTableName,
+      searchWord: levelName,
+      columnName: MySqFLiteDatabase.educationalStageName,
+    );
+  }
 }

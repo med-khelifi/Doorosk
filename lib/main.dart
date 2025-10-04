@@ -26,5 +26,6 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   String route = await getInitialRoute();
 
+
   runApp(Doorosk(initialRoute: route));
 }

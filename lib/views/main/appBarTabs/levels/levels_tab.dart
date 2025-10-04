@@ -25,7 +25,7 @@ class _LevelsTabState extends State<LevelsTab> {
       children: [
         CustomTabesAppBar(
           onAddTap: () => _tabController.onAddLevelPressed(context),
-          onSearchTap: () {},
+          onSearchTap: _tabController.onSearchTapped,
           label: StringsManager.homeScreenLearningLevels,
         ),
         SizedBox(height: 10),

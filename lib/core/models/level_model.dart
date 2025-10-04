@@ -3,12 +3,15 @@ class LevelModel {
   final String title;
   final String description;
   final String? imagePath;
+  String? createdAt;
 
   LevelModel({
     this.levelId,
     required this.title,
     required this.description,
     this.imagePath,
+    this.createdAt,
+
   });
   Map<String, Object?> toMap() {
     return {"name": title, "desc": description, "image": imagePath};
@@ -27,6 +30,7 @@ class LevelModel {
       title: map['name']?.toString() ?? '',
       description: map['desc']?.toString() ?? '',
       imagePath: map['image']?.toString(),
+      createdAt: map['created_at']?.toString()
     );
   }
 }
