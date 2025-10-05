@@ -19,8 +19,7 @@ class AlertDialogCameraGallery {
           style: ElevatedButton.styleFrom(
             foregroundColor: ColorsManager.whiteColor,
             backgroundColor: ColorsManager.redColor,
-            shape: CircleBorder(), // يخلي الزر دائري
-           // padding: EdgeInsets.all(12),
+            shape: CircleBorder(), 
           ),
         ),
         content: Row(

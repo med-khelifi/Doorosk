@@ -21,7 +21,7 @@ class CustomTabesAppBar extends StatelessWidget {
       child: Container(
         padding: EdgeInsets.symmetric(vertical: 10.h, horizontal: 17.w),
         color: ColorsManager.primaryColor,
-        height: 45.h,
+        height: 50.h,
         width: double.infinity,
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -30,7 +30,7 @@ class CustomTabesAppBar extends StatelessWidget {
               label,
               style: TextStyle(
                 fontFamily: FontsNamesManager.geDinarOneFontName,
-                fontSize: 15.sp,
+                fontSize: 18.sp,
                 color: ColorsManager.whiteColor,
               ),
             ),
@@ -43,12 +43,13 @@ class CustomTabesAppBar extends StatelessWidget {
                   child: Icon(
                     Icons.add_circle_outline,
                     color: ColorsManager.whiteColor,
+                    size: 30,
                   ),
                 ),
                 SizedBox(width: 5.w),
                 InkWell(
                   onTap: onSearchTap,
-                  child: Icon(Icons.search, color: ColorsManager.whiteColor),
+                  child: Icon(Icons.search, color: ColorsManager.whiteColor,size: 30,),
                 ),
               ],
             ),

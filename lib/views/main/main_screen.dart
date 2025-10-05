@@ -1,4 +1,4 @@
-import 'package:doorosk/controllers/main%20sscreen%20controller/main_screen_controller.dart';
+import 'package:doorosk/controllers/main%20screen%20controller/main_screen_controller.dart';
 import 'package:doorosk/core/resources/colors/colors_manager.dart';
 import 'package:doorosk/views/main/widgets/custom_bottom_navigation_bar_main_screen.dart';
 import 'package:flutter/material.dart';

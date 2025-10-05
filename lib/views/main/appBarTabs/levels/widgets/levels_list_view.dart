@@ -16,15 +16,12 @@ class LevelsListView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
-      // padding: EdgeInsets.symmetric(horizontal: 20),
       itemBuilder: (BuildContext context, int index) => LevelDescription(
         model: modelsList[index],
         deleteLevel: deleteLevel,
         editLevel: editLevel,
       ),
       itemCount: modelsList.length,
-      // separatorBuilder: (BuildContext context, int index) =>
-      //     SizedBox(height: 18.h),
     );
   }
 }

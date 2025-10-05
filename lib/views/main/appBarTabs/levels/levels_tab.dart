@@ -1,9 +1,11 @@
-import 'package:doorosk/controllers/main%20sscreen%20controller/level_tab/level_tab_controller.dart';
-import 'package:doorosk/core/models/level_model.dart';
+import 'package:doorosk/controllers/main%20screen%20controller/level_tab/level_tab_controller.dart';
+import 'package:doorosk/core/resources/colors/colors_manager.dart';
+import 'package:doorosk/core/resources/fonts/fonts_names_manager.dart';
 import 'package:doorosk/core/resources/strings/strings_manager.dart';
 import 'package:doorosk/views/main/appBarTabs/levels/widgets/levels_list_view.dart';
 import 'package:doorosk/views/main/appBarTabs/widgets/custom_tabes_app_bar.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class LevelsTab extends StatefulWidget {
   const LevelsTab({super.key});
@@ -37,11 +39,33 @@ class _LevelsTabState extends State<LevelsTab> {
               if (snapshot.connectionState == ConnectionState.waiting) {
                 return Center(child: CircularProgressIndicator());
               } else if (snapshot.hasError) {
-                return Center(child: Text("حدث خطأ أثناء تحميل المستويات"));
+                return Center(
+                  child: Text(
+                    StringsManager.errorsWhileFetchingLevels,
+                    style: TextStyle(
+                      color: ColorsManager.whiteColor,
+                      fontFamily: FontsNamesManager.geDinarOneFontName,
+                      fontSize: 15.sp,
+                    ),
+                  ),
+                );
               } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
-                return Center(child: Text("لا توجد مستويات"));
+                return Center(
+                  child: Text(
+                    StringsManager.noLevels,
+                    style: TextStyle(
+                      color: ColorsManager.whiteColor,
+                      fontFamily: FontsNamesManager.geDinarOneFontName,
+                      fontSize: 15.sp,
+                    ),
+                  ),
+                );
               } else {
-                return LevelsListView(modelsList: snapshot.data!, deleteLevel: _tabController.softDeleteEducationLevel, editLevel: _tabController.editEducationLevel,);
+                return LevelsListView(
+                  modelsList: snapshot.data!,
+                  deleteLevel: _tabController.softDeleteEducationLevel,
+                  editLevel: _tabController.editEducationLevel,
+                );
               }
             },
           ),

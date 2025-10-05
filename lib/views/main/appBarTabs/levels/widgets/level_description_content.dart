@@ -1,5 +1,4 @@
 import 'dart:io';
-
 import 'package:doorosk/core/resources/colors/colors_manager.dart';
 import 'package:doorosk/core/resources/fonts/fonts_names_manager.dart';
 import 'package:doorosk/core/resources/images/images_manager.dart';

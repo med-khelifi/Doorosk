@@ -1,7 +1,7 @@
-
 import 'package:doorosk/core/models/level_model.dart';
 import 'package:doorosk/core/resources/colors/colors_manager.dart';
 import 'package:doorosk/core/resources/fonts/fonts_names_manager.dart';
+import 'package:doorosk/core/resources/strings/strings_manager.dart';
 import 'package:doorosk/views/main/appBarTabs/levels/widgets/levels_list_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -78,7 +78,7 @@ class SearchEducationLevel extends SearchDelegate<String> {
         color: ColorsManager.lightBlackColor,
         child: Center(
           child: Text(
-            "من فضلك أدخل كلمة للبحث",
+            StringsManager.pleaseEnterWordToSearch,
             style: TextStyle(
               color: ColorsManager.whiteColor,
               fontFamily: FontsNamesManager.geDinarOneFontName,
@@ -97,9 +97,27 @@ class SearchEducationLevel extends SearchDelegate<String> {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return Center(child: CircularProgressIndicator());
           } else if (snapshot.hasError) {
-            return Center(child: Text("حدث خطأ أثناء جلب البيانات"));
+            return Center(
+              child: Text(
+                StringsManager.errorsWhileFetchingData,
+                style: TextStyle(
+                  color: ColorsManager.whiteColor,
+                  fontFamily: FontsNamesManager.geDinarOneFontName,
+                  fontSize: 15.sp,
+                ),
+              ),
+            );
           } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
-            return Center(child: Text("لم يتم العثور على نتائج"));
+            return Center(
+              child: Text(
+                StringsManager.noResultFound,
+                style: TextStyle(
+                  color: ColorsManager.whiteColor,
+                  fontFamily: FontsNamesManager.geDinarOneFontName,
+                  fontSize: 15.sp,
+                ),
+              ),
+            );
           } else {
             return LevelsListView(
               modelsList: snapshot.data!,
@@ -119,7 +137,7 @@ class SearchEducationLevel extends SearchDelegate<String> {
         color: ColorsManager.lightBlackColor,
         child: Center(
           child: Text(
-            "اكتب اسم المستوى للبحث",
+            StringsManager.typeLevelNameToSearch,
             style: TextStyle(
               color: ColorsManager.whiteColor,
               fontFamily: FontsNamesManager.geDinarOneFontName,
@@ -138,9 +156,27 @@ class SearchEducationLevel extends SearchDelegate<String> {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return Center(child: CircularProgressIndicator());
           } else if (snapshot.hasError) {
-            return Center(child: Text("حدث خطأ أثناء جلب البيانات"));
+            return Center(
+              child: Text(
+                StringsManager.errorsWhileFetchingData,
+                style: TextStyle(
+                  color: ColorsManager.whiteColor,
+                  fontFamily: FontsNamesManager.geDinarOneFontName,
+                  fontSize: 15.sp,
+                ),
+              ),
+            );
           } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
-            return Center(child: Text("لا توجد اقتراحات"));
+            return Center(
+              child: Text(
+                StringsManager.noSuggestions,
+                style: TextStyle(
+                  color: ColorsManager.whiteColor,
+                  fontFamily: FontsNamesManager.geDinarOneFontName,
+                  fontSize: 15.sp,
+                ),
+              ),
+            );
           } else {
             return LevelsListView(
               modelsList: snapshot.data!,

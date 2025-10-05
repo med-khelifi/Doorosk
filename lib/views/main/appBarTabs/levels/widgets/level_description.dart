@@ -1,6 +1,7 @@
 import 'package:doorosk/core/models/level_model.dart';
 import 'package:doorosk/core/resources/colors/colors_manager.dart';
 import 'package:doorosk/core/resources/fonts/fonts_names_manager.dart';
+import 'package:doorosk/core/resources/strings/strings_manager.dart';
 import 'package:doorosk/views/home/widgets/custom_circular_shape.dart';
 import 'package:doorosk/views/main/appBarTabs/levels/widgets/level_description_content.dart';
 import 'package:flutter/material.dart';
@@ -28,25 +29,54 @@ class LevelDescription extends StatelessWidget {
           return await showDialog<bool>(
             context: context,
             builder: (ctx) => AlertDialog(
-              title: Text("تأكيد الحذف"),
-              content: Text("هل أنت متأكد أنك تريد حذف هذا العنصر؟"),
+              title: Text(
+                StringsManager.confirmDeletion,
+                textDirection: TextDirection.rtl,
+                style: TextStyle(
+                  color: ColorsManager.blackColor,
+                  fontFamily: FontsNamesManager.geDinarOneFontName,
+                  fontSize: 15.sp,
+                ),
+              ),
+              content: Text(
+                StringsManager.areUSureToDeleteThisItem,
+                style: TextStyle(
+                  color: ColorsManager.blackColor,
+                  fontFamily: FontsNamesManager.geDinarOneFontName,
+                  fontSize: 15.sp,
+                ),
+              ),
               actions: [
                 TextButton(
-                  onPressed: () => Navigator.of(ctx).pop(false), // إلغاء
-                  child: Text("إلغاء"),
+                  onPressed: () => Navigator.of(ctx).pop(false),
+                  child: Text(
+                    StringsManager.cancel,
+                    style: TextStyle(
+                      color: ColorsManager.blackColor,
+                      fontFamily: FontsNamesManager.geDinarOneFontName,
+                      fontSize: 12.sp,
+                    ),
+                  ),
                 ),
-                ElevatedButton(
+                TextButton(
                   onPressed: () {
                     Navigator.of(ctx).pop(true);
                     deleteLevel(model);
-                  }, // حذف
-                  child: Text("حذف"),
+                  }, 
+                  child: Text(
+                    StringsManager.delete,
+                    style: TextStyle(
+                      color: ColorsManager.blackColor,
+                      fontFamily: FontsNamesManager.geDinarOneFontName,
+                      fontSize: 12.sp,
+                    ),
+                  ),
                 ),
               ],
             ),
           );
         }
-        return false; // default
+        return false; 
       },
 
       background: Container(
@@ -54,7 +84,7 @@ class LevelDescription extends StatelessWidget {
         alignment: Alignment.centerLeft,
         color: ColorsManager.redColor,
         child: Text(
-          "حذف",
+          StringsManager.delete,
           style: TextStyle(
             color: ColorsManager.whiteColor,
             fontFamily: FontsNamesManager.geDinarOneFontName,
@@ -67,7 +97,7 @@ class LevelDescription extends StatelessWidget {
         alignment: Alignment.centerRight,
         color: ColorsManager.greenColor,
         child: Text(
-          "تعديل",
+          StringsManager.edit,
           style: TextStyle(
             color: ColorsManager.whiteColor,
             fontFamily: FontsNamesManager.geDinarOneFontName,
@@ -80,7 +110,7 @@ class LevelDescription extends StatelessWidget {
           bottom: 10,
           left: 10,
           top: 20,
-          right: 30,
+          right: 20,
         ),
         child: Stack(
           clipBehavior: Clip.none,

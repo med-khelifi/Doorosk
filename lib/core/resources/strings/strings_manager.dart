@@ -27,4 +27,16 @@ class StringsManager {
   static const String editingDoneMessage = "تمت تعديل المستوى بنجاح ✅";
   static const String pleaseEnterLevelName = "الرجاء إدخال اسم المستوى";
   static const String pleaseEnterLevelDescription = "الرجاء إدخال وصف المستوى";
+  static const String errorsWhileFetchingLevels =
+      "حدث خطأ أثناء تحميل المستويات";
+  static const String errorsWhileFetchingData = "حدث خطأ أثناء جلب البيانات";
+  static const String noLevels = "لا توجد مستويات";
+  static const String pleaseEnterWordToSearch = "من فضلك أدخل كلمة للبحث";
+  static const String noResultFound = "لم يتم العثور على نتائج";
+  static const String typeLevelNameToSearch = "اكتب اسم المستوى للبحث";
+  static const String noSuggestions = "لا توجد اقتراحات";
+  static const String confirmDeletion = "تأكيد الحذف";
+  static const String areUSureToDeleteThisItem ="هل أنت متأكد أنك تريد حذف هذا العنصر؟";
+  static const String cancel ="إلغاء";
+  static const String delete ="حذف";
 }

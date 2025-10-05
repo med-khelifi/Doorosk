@@ -1,22 +1,19 @@
 import 'dart:async';
 import 'dart:io';
 import 'package:doorosk/core/models/level_model.dart';
-import 'package:doorosk/core/resources/colors/colors_manager.dart';
-import 'package:doorosk/core/resources/fonts/fonts_names_manager.dart';
 import 'package:doorosk/core/resources/strings/strings_manager.dart';
 import 'package:doorosk/database/education_stage_operation.dart';
 import 'package:doorosk/views/main/appBarTabs/levels/widgets/add_new_level_bottom_sheet.dart';
 import 'package:doorosk/views/main/appBarTabs/levels/widgets/alert_dialog_camera_gallery.dart';
-import 'package:doorosk/views/main/appBarTabs/levels/widgets/levels_list_view.dart';
 import 'package:doorosk/views/main/appBarTabs/levels/widgets/search_education_level.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:path_provider/path_provider.dart';
 
 class LevelTabController {
   late BuildContext _context;
   late bool isEditMode;
+  String? updatedLevelId;
 
   /// Controllers
   final ImagePicker _imagePicker = ImagePicker();
@@ -96,7 +93,7 @@ class LevelTabController {
       onDeletePicTapped: onDeleteLevelPicTapped,
       selectedPicStream: selectedImageStream,
       editMode: isEditMode,
-      initialImagePath: isEditMode ? _selectedImagePath : null
+      initialImagePath: isEditMode ? _selectedImagePath : null,
     );
   }
 
@@ -132,13 +129,15 @@ class LevelTabController {
     bool res = isEditMode
         ? await educationStageOperation.updateEducationLevel(level)
         : await educationStageOperation.insertLevelDetails(level);
-  
+
     if (res) {
       // Close the keyboard
+      // ignore: use_build_context_synchronously
       FocusScope.of(_context).unfocus();
 
       // Show success dialog
       showDialog(
+        // ignore: use_build_context_synchronously
         context: _context,
         builder: (ctx) => AlertDialog(
           title: Text(StringsManager.addingWithSuccessTitle),
@@ -206,18 +205,16 @@ class LevelTabController {
 
   void softDeleteEducationLevel(LevelModel model) async {
     EducationStageOperation op = EducationStageOperation();
-    final res = await op.softDelete(model: model);
+    await op.softDelete(model: model);
   }
-  String? updatedLevelId;
+
   void editEducationLevel(LevelModel model) async {
     isEditMode = true;
     _selectedImagePath = model.imagePath;
-    updatedLevelId=model.levelId;
+    updatedLevelId = model.levelId;
     onAddLevelPressed(_context);
     _levelNameTextController.text = model.title;
     _levelDescriptionTextController.text = model.description;
     _selectedImagePath = model.imagePath;
-   // the problem is here why the image dont lode in bottomsheet
-    print(_selectedImagePath);
   }
 }
