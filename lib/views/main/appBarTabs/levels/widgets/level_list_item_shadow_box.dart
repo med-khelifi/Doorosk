@@ -7,8 +7,8 @@ import 'package:doorosk/views/main/appBarTabs/levels/widgets/level_description_c
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-class LevelDescription extends StatelessWidget {
-  const LevelDescription({
+class LevelListItemShadowBox extends StatelessWidget {
+  const LevelListItemShadowBox({
     super.key,
     required this.model,
     required this.deleteLevel,
@@ -62,7 +62,7 @@ class LevelDescription extends StatelessWidget {
                   onPressed: () {
                     Navigator.of(ctx).pop(true);
                     deleteLevel(model);
-                  }, 
+                  },
                   child: Text(
                     StringsManager.delete,
                     style: TextStyle(
@@ -76,9 +76,8 @@ class LevelDescription extends StatelessWidget {
             ),
           );
         }
-        return false; 
+        return false;
       },
-
       background: Container(
         padding: EdgeInsets.all(20),
         alignment: Alignment.centerLeft,
